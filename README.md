@@ -157,7 +157,7 @@ La distance minimale aux centres de clusters est utilisée pour évaluer la forc
 
 ## Sécurité
 
-**Important** : Cette bibliothèque est conçue pour évaluer la force des mots de passe, mais ne doit pas être utilisée seule pour la sécurité. Voir [Security.md](SECURITY.md)
+**Important** : Cette bibliothèque est conçue pour évaluer la force des mots de passe, mais ne doit pas être utilisée seule pour la sécurité. Voir [Security.md](Security.md)
 
 ## Licence
 
