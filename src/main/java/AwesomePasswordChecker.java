@@ -10,22 +10,38 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Vérificateur de mots de passe utilisant une approche basée sur le clustering
+ * pour évaluer la force des mots de passe.
+ */
 public class AwesomePasswordChecker {
 
   private static AwesomePasswordChecker instance;
 
   private final List<double[]> clusterCenters = new ArrayList<>();
 
-  /* Helper function to calculate the Euclidean distance between two vectors*/
+  /**
+   * Calcule la distance euclidienne entre deux vecteurs.
+   *
+   * @param a le premier vecteur (entiers)
+   * @param b le deuxième vecteur (doubles)
+   * @return la distance euclidienne entre les deux vecteurs
+   */
   private double euclideanDistance(int[] a, double[] b) {
-        double sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            sum += (a[i] - b[i]) * (a[i] + b[i]);
-        }
-        return Math.sqrt(sum);
+    double sum = 0;
+    for (int i = 0; i < a.length; i++) {
+        sum += (a[i] - b[i]) * (a[i] + b[i]);
     }
+    return Math.sqrt(sum);
+  }
 
+  /**
+   * Constructeur privé pour implémenter le pattern Singleton.
+   * Charge les centres de clusters depuis un flux d'entrée.
+   *
+   * @param is le flux d'entrée contenant les centres de clusters
+   * @throws IOException si une erreur de lecture survient
+   */
   private AwesomePasswordChecker(InputStream is) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(is));
     String line;
@@ -41,13 +57,26 @@ public class AwesomePasswordChecker {
     br.close();
   }
 
+  /**
+   * Retourne l'instance unique du vérificateur avec un fichier personnalisé.
+   *
+   * @param file le fichier contenant les centres de clusters
+   * @return l'instance unique du vérificateur
+   * @throws IOException si une erreur de lecture du fichier survient
+   */
   public static AwesomePasswordChecker getInstance(File file) throws IOException {
     if (instance == null) {
           instance = new AwesomePasswordChecker(new FileInputStream(file));
     }
     return instance;
   }
-  
+
+  /**
+   * Retourne l'instance unique du vérificateur avec le fichier par défaut.
+   *
+   * @return l'instance unique du vérificateur
+   * @throws IOException si une erreur de lecture des ressources survient
+   */
   public static AwesomePasswordChecker getInstance() throws IOException {
     if (instance == null) {
       InputStream is = AwesomePasswordChecker.class.getClassLoader().getResourceAsStream("cluster_centers_HAC_aff.csv");
@@ -56,14 +85,21 @@ public class AwesomePasswordChecker {
       return instance;
   }
 
+  /**
+   * Génère un masque représentant les caractéristiques du mot de passe.
+   * Chaque position du mot de passe est codée selon le type de caractère.
+   *
+   * @param password le mot de passe à analyser
+   * @return un tableau d'entiers représentant le masque (max 28 positions)
+   */
   public int[] maskAff(String password) {
-    int[] maskArray = new int[28]; 
+    int[] maskArray = new int[28];
     int limit = Math.min(password.length(), 28);
-    
+
     for (int i = 0; i < limit; ++i) {
           char c = password.charAt(i);
       switch (c) {
-        case 'e': 
+        case 'e':
         case 's':
         case 'a':
         case 'i':
@@ -114,6 +150,12 @@ public class AwesomePasswordChecker {
     return maskArray;
   }
 
+  /**
+   * Calcule la distance minimale entre le mot de passe et les centres de clusters.
+   *
+   * @param password le mot de passe à évaluer
+   * @return la distance minimale aux centres de clusters
+   */
   public double getDistance(String password) {
     int[] maskArray = maskAff(password);
     double minDistance = Double.MAX_VALUE;
@@ -123,7 +165,13 @@ public class AwesomePasswordChecker {
     return minDistance;
   }
 
-  public static String ComputeMD5(String input) {
+  /**
+   * Calcule le hash MD5 d'une chaîne de caractères.
+   *
+   * @param input la chaîne à hasher
+   * @return la représentation hexadécimale du hash MD5
+   */
+  public static String computeMd5(String input) {
     byte[] message = input.getBytes();
     int messageLenBytes = message.length;
 
