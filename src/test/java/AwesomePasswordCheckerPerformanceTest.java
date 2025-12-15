@@ -1,6 +1,6 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import java.io.IOException;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AwesomePasswordCheckerPerformanceTest {
 
@@ -19,7 +19,7 @@ public class AwesomePasswordCheckerPerformanceTest {
         long duration = endTime - startTime;
 
         // Doit prendre moins de 5 secondes pour 1000 appels
-        assertTrue("Performance test failed: took " + duration + "ms", duration < 5000);
+        assertTrue(duration < 5000, "Performance test failed: took " + duration + "ms");
     }
 
     @Test
@@ -34,6 +34,6 @@ public class AwesomePasswordCheckerPerformanceTest {
         long duration = endTime - startTime;
 
         // Doit prendre moins de 3 secondes pour 10000 appels
-        assertTrue("Performance test failed: took " + duration + "ms", duration < 3000);
+        assertTrue(duration < 3000, "Performance test failed: took " + duration + "ms");
     }
 }

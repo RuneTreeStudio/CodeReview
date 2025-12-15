@@ -1,15 +1,15 @@
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AwesomePasswordCheckerTest {
 
     private AwesomePasswordChecker checker;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         checker = AwesomePasswordChecker.getInstance();
     }
@@ -24,7 +24,7 @@ public class AwesomePasswordCheckerTest {
     public void testGetInstance() throws IOException {
         AwesomePasswordChecker instance1 = AwesomePasswordChecker.getInstance();
         AwesomePasswordChecker instance2 = AwesomePasswordChecker.getInstance();
-        assertSame("Les deux instances doivent être identiques (Singleton)", instance1, instance2);
+        assertSame(instance1, instance2, "Les deux instances doivent être identiques (Singleton)");
     }
 
     @Test
@@ -63,15 +63,15 @@ public class AwesomePasswordCheckerTest {
     public void getDistance() {
         // Test avec un mot de passe simple
         double distance1 = checker.getDistance("password");
-        assertTrue("La distance doit être positive", distance1 >= 0);
+        assertTrue(distance1 >= 0, "La distance doit être positive");
 
         // Test avec un mot de passe complexe
         double distance2 = checker.getDistance("P@ssw0rd!123");
-        assertTrue("La distance doit être positive", distance2 >= 0);
+        assertTrue(distance2 >= 0, "La distance doit être positive");
 
         // Test avec une chaîne vide
         double distance3 = checker.getDistance("");
-        assertTrue("La distance doit être positive", distance3 >= 0);
+        assertTrue(distance3 >= 0, "La distance doit être positive");
     }
 
     @Test
