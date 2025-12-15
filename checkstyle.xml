@@ -4,9 +4,17 @@
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
+    <!-- Modules au niveau Checker -->
+    <module name="LineLength">
+        <property name="max" value="120"/>
+    </module>
+
     <module name="TreeWalker">
+        <!-- Documentation -->
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
+
+        <!-- Nommage -->
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
@@ -16,22 +24,31 @@
         <module name="ParameterName"/>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
+
+        <!-- Imports -->
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-        <module name="LineLength">
-            <property name="max" value="120"/>
-        </module>
+
+        <!-- Taille -->
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
+
+        <!-- Blocs -->
         <module name="EmptyBlock"/>
         <module name="NeedBraces"/>
         <module name="LeftCurly"/>
         <module name="RightCurly"/>
+
+        <!-- Espaces -->
         <module name="WhitespaceAfter"/>
         <module name="WhitespaceAround"/>
+
+        <!-- Modificateurs -->
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
+
+        <!-- Autres -->
         <module name="AvoidNestedBlocks"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>

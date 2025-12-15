@@ -47,7 +47,7 @@ public class AwesomePasswordChecker {
   private AwesomePasswordChecker(InputStream is) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(is));
     String line;
-    while((line = br.readLine()) != null){
+    while ((line = br.readLine()) != null) {
         String[] values = line.split(",");
         double[] center = new double[values.length];
 
