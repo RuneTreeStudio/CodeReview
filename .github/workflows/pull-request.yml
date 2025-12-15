@@ -8,6 +8,11 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,7 +30,7 @@ jobs:
 
       - name: Run Unit Tests
         run: mvn test
-        
+
       - name: Generate JaCoCo Report
         run: mvn jacoco:report
 
